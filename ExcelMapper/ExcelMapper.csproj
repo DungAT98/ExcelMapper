@@ -8,6 +8,8 @@
         <Title>ExcelMapper</Title>
         <Authors>DungAT</Authors>
         <Description>This is an simple mapper when reading excel file. It used Reflection to map and assign value to the model.</Description>
+        <Copyright>DungAT</Copyright>
+        <PackageProjectUrl>https://github.com/DungAT98/ExcelMapper</PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>
