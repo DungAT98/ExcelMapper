@@ -1,0 +1,10 @@
+F:\DungAT\ExcelMapper\ExcelMapper\obj\Debug\netstandard2.1\ExcelMapper.csproj.AssemblyReference.cache
+F:\DungAT\ExcelMapper\ExcelMapper\obj\Debug\netstandard2.1\ExcelMapper.GeneratedMSBuildEditorConfig.editorconfig
+F:\DungAT\ExcelMapper\ExcelMapper\obj\Debug\netstandard2.1\ExcelMapper.AssemblyInfoInputs.cache
+F:\DungAT\ExcelMapper\ExcelMapper\obj\Debug\netstandard2.1\ExcelMapper.AssemblyInfo.cs
+F:\DungAT\ExcelMapper\ExcelMapper\obj\Debug\netstandard2.1\ExcelMapper.csproj.CoreCompileInputs.cache
+F:\DungAT\ExcelMapper\ExcelMapper\bin\Debug\netstandard2.1\ExcelMapper.deps.json
+F:\DungAT\ExcelMapper\ExcelMapper\bin\Debug\netstandard2.1\ExcelMapper.dll
+F:\DungAT\ExcelMapper\ExcelMapper\bin\Debug\netstandard2.1\ExcelMapper.pdb
+F:\DungAT\ExcelMapper\ExcelMapper\obj\Debug\netstandard2.1\ExcelMapper.dll
+F:\DungAT\ExcelMapper\ExcelMapper\obj\Debug\netstandard2.1\ExcelMapper.pdb
