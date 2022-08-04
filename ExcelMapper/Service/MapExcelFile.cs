@@ -10,9 +10,9 @@ using ExcelMapper.Common;
 using ExcelMapper.Infrastructure;
 using ExcelMapper.Model;
 
-namespace ExcelMapper
+namespace ExcelMapper.Service
 {
-    public class MapExcelFile
+    public class MapExcelFile : IMapExcelFile
     {
         public string[] DateTimeFormat { get; } = { };
 
@@ -27,8 +27,8 @@ namespace ExcelMapper
             {
                 while (reader.Read())
                 {
-                    var rowData = ReadEntireRow(reader);
-                    var isEmptyRow = IsRowEmpty(rowData);
+                    var rowData = ExcelHelper.ReadEntireRow(reader);
+                    var isEmptyRow = ExcelHelper.IsRowEmpty(rowData);
                     if (isEmptyRow)
                     {
                         currentLine++;
@@ -37,7 +37,7 @@ namespace ExcelMapper
 
                     if (currentLine == lineOffset)
                     {
-                        var headerRow = ReadEntireRow(reader);
+                        var headerRow = ExcelHelper.ReadEntireRow(reader);
                         var isHeaderValid = ValidateHeader<TExcelModel>(headerRow, out var linesError);
                         if (!isHeaderValid)
                         {
@@ -75,27 +75,6 @@ namespace ExcelMapper
             } while (reader.NextResult());
 
             reader.Close();
-
-            return result;
-        }
-
-        private bool IsRowEmpty(string[] data)
-        {
-            return data.All(string.IsNullOrWhiteSpace);
-        }
-
-        private string[] ReadEntireRow(IExcelDataReader reader)
-        {
-            var result = new string[reader.FieldCount];
-            for (var i = 0; i < reader.FieldCount; i++)
-                try
-                {
-                    result[i] = reader.GetValue(i)?.ToString()!;
-                }
-                catch
-                {
-                    result[i] = null!;
-                }
 
             return result;
         }
