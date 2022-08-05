@@ -24,6 +24,6 @@ jobs:
 #     - name: Test
 #       run: dotnet test --no-build --verbosity normal
     - name: Push
-      run: dotnet nuget push "**/*.nupkg" --source https://nuget.pkg.github.com/DungAT98/index.json --api-key ${GITHUB_TOKEN}
+      run: dotnet nuget push "**/*.nupkg" --source https://nuget.pkg.github.com/DungAT98/index.json --api-key ${GITHUB_TOKEN} --skip-duplicate
       env:
         GITHUB_TOKEN: ${{ secrets.GH_REGISTRY_TOKEN }}
