@@ -9,52 +9,24 @@ on:
       - completed
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    timeout-minutes: 15
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup Dotnet Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.100
-        source-url: https://nuget.pkg.github.com/DungAT98/index.json
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.GH_REGISTRY_TOKEN}}
-
-    - name: Setup Nuget Config
-      run: sed 's/GH_REGISTRY_TOKEN/${{ secrets.GH_REGISTRY_TOKEN }}/g' .nuget.config > nuget.config
-
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Verify commit exists in origin/main
+      run: |
+        git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+        git branch --remote --contains | grep origin/main
+    - name: Set VERSION variable from tag
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
     - name: Build
-      run: dotnet build --configuration Release
-
-    - name: Version and Tag
-      id: bump_version
-      uses: mathieudutour/github-tag-action@v1
-      with:
-        github_token: ${{ secrets.GH_REGISTRY_TOKEN }}
-
-    - name: Prep Version String
-      run: echo ::set-env name=VERSION_NUMBER::$(echo ${{ steps.bump_version.outputs.new_tag }} | sed 's/[v]//g')
-
-    - name: Define Package Name
-      run: echo ::set-env name=PACKAGE_NAME::$"ExcelMapper/bin/Release/ExcelMapper.${{ env.VERSION_NUMBER }}.nupkg"
-
-    - name: Set Nuget Package Version
-      uses: roryprimrose/set-vs-sdk-project-version@v1
-      with:
-        version: ${{ env.VERSION_NUMBER }}
-
+      run: dotnet build --configuration Release /p:Version=${VERSION}
+    - name: Test
+      run: dotnet test --configuration Release /p:Version=${VERSION} --no-build
     - name: Pack
-      run: dotnet pack --configuration Release ExcelMapper
-
-    - name: Publish Package
-      run: dotnet nuget push ExcelMapper/bin/Release/*.nupkg --source https://nuget.pkg.github.com/DungAT98/index.json
-
-    - name: Create Release
-      uses: actions/create-release@v1
+      run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
+    - name: Push
+      run: dotnet nuget push NuGet.Workflow.${VERSION}.nupkg --source https://nuget.pkg.github.com/acraven/index.json --api-key ${GITHUB_TOKEN}
       env:
         GITHUB_TOKEN: ${{ secrets.GH_REGISTRY_TOKEN }}
-      with:
-        tag_name: ${{ steps.bump_version.outputs.new_tag }}
-        release_name: Release ${{ github.ref }}
