@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelReaderMapper", "ExcelMapper\ExcelReaderMapper.csproj", "{7E6F029E-A50E-4A52-9AC2-D38FF04EC3C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelReaderMapper", "ExcelReaderMapper\ExcelReaderMapper.csproj", "{7E6F029E-A50E-4A52-9AC2-D38FF04EC3C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelReaderMapper.Testing", "ExcelReaderMapper.Testing\ExcelReaderMapper.Testing.csproj", "{4B84694A-5074-464E-AF82-E46BED7D4504}"
 EndProject

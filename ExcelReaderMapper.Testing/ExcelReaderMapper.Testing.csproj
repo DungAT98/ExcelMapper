@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ExcelMapper\ExcelReaderMapper.csproj" />
+      <ProjectReference Include="..\ExcelReaderMapper\ExcelReaderMapper.csproj" />
     </ItemGroup>
 
 </Project>

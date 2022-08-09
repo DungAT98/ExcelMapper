@@ -1,5 +1,0 @@
-F:\DungAT\ExcelMapper\ExcelMapper\obj\Debug\net5.0\ExcelMapper.csproj.AssemblyReference.cache
-F:\DungAT\ExcelMapper\ExcelMapper\obj\Debug\net5.0\ExcelMapper.GeneratedMSBuildEditorConfig.editorconfig
-F:\DungAT\ExcelMapper\ExcelMapper\obj\Debug\net5.0\ExcelMapper.AssemblyInfoInputs.cache
-F:\DungAT\ExcelMapper\ExcelMapper\obj\Debug\net5.0\ExcelMapper.AssemblyInfo.cs
-F:\DungAT\ExcelMapper\ExcelMapper\obj\Debug\net5.0\ExcelMapper.csproj.CoreCompileInputs.cache
