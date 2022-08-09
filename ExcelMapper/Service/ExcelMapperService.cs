@@ -2,7 +2,6 @@
 using System.IO;
 using ExcelDataReader;
 using ExcelReaderMapper.Common;
-using ExcelReaderMapper.Factory;
 using ExcelReaderMapper.Infrastructure;
 using ExcelReaderMapper.Model;
 
@@ -89,16 +88,6 @@ namespace ExcelReaderMapper.Service
             } while (reader.NextResult());
 
             reader.Close();
-
-            return result;
-        }
-
-        private TModel GetDataFromCell<TModel>(IExcelDataReader reader, List<ExcelColumnModel> columnList,
-            out List<ILoggingModel> errorsList, ParsingMethod parsingMethod)
-        {
-            errorsList = new List<ILoggingModel>();
-            var parsingFactory = GetDataFromCellFactory.GetDataFromCell(parsingMethod);
-            var result = parsingFactory.MappingData<TModel>(reader, columnList, ref errorsList);
 
             return result;
         }
