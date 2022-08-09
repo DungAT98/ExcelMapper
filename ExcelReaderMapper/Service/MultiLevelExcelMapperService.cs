@@ -2,28 +2,27 @@
 using System.IO;
 using ExcelDataReader;
 using ExcelReaderMapper.Common;
-using ExcelReaderMapper.Factory;
 using ExcelReaderMapper.Infrastructure;
 using ExcelReaderMapper.Model;
 
 namespace ExcelReaderMapper.Service
 {
-    public class ExcelMapperService : ExcelMapperServiceBase, IExcelMapperService
+    public class MultiLevelExcelMapperService : ExcelMapperServiceBase, IExcelMapperService
     {
-        public ExcelMapperService()
+        public MultiLevelExcelMapperService()
         {
         }
 
-        public ExcelMapperService(IHeaderRowService? headerRowService) : base(headerRowService)
+        public MultiLevelExcelMapperService(IHeaderRowService? headerRowService) : base(headerRowService)
         {
         }
 
-        public ExcelMapperService(IValidateHeaderService? validateHeaderService) : base(validateHeaderService)
+        public MultiLevelExcelMapperService(IValidateHeaderService? validateHeaderService) : base(validateHeaderService)
         {
         }
 
-        public ExcelMapperService(IHeaderRowService? headerRowService, IValidateHeaderService? validateHeaderService) :
-            base(headerRowService, validateHeaderService)
+        public MultiLevelExcelMapperService(IHeaderRowService? headerRowService,
+            IValidateHeaderService? validateHeaderService) : base(headerRowService, validateHeaderService)
         {
         }
 
@@ -33,12 +32,18 @@ namespace ExcelReaderMapper.Service
             var result = new List<IExcelResult<TExcelModel>>();
             using var memoryStream = new MemoryStream(content);
             using var reader = ExcelReaderFactory.CreateReader(memoryStream);
-            var currentLine = lineOffset;
+            var currentLine = 1;
             var excelColumnsList = new List<ExcelColumnModel>();
             do
             {
                 while (reader.Read())
                 {
+                    // skip all above lines until got the lineOffset
+                    if (currentLine < lineOffset)
+                    {
+                        continue;
+                    }
+
                     var rowData = ExcelHelper.ReadEntireRow(reader);
                     var isEmptyRow = ExcelHelper.IsRowEmpty(rowData);
                     if (isEmptyRow)
@@ -89,16 +94,6 @@ namespace ExcelReaderMapper.Service
             } while (reader.NextResult());
 
             reader.Close();
-
-            return result;
-        }
-
-        private TModel GetDataFromCell<TModel>(IExcelDataReader reader, List<ExcelColumnModel> columnList,
-            out List<ILoggingModel> errorsList, ParsingMethod parsingMethod)
-        {
-            errorsList = new List<ILoggingModel>();
-            var parsingFactory = GetDataFromCellFactory.GetDataFromCell(parsingMethod);
-            var result = parsingFactory.MappingData<TModel>(reader, columnList, ref errorsList);
 
             return result;
         }

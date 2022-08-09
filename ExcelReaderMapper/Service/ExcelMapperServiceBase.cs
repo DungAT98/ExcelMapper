@@ -1,4 +1,9 @@
-﻿using ExcelReaderMapper.Infrastructure;
+﻿using System.Collections.Generic;
+using ExcelDataReader;
+using ExcelReaderMapper.Common;
+using ExcelReaderMapper.Factory;
+using ExcelReaderMapper.Infrastructure;
+using ExcelReaderMapper.Model;
 
 namespace ExcelReaderMapper.Service
 {
@@ -55,6 +60,16 @@ namespace ExcelReaderMapper.Service
                 return _validateHeaderService;
             }
             set => _validateHeaderService = value;
+        }
+
+        protected TModel GetDataFromCell<TModel>(IExcelDataReader reader, List<ExcelColumnModel> columnList,
+            out List<ILoggingModel> errorsList, ParsingMethod parsingMethod)
+        {
+            errorsList = new List<ILoggingModel>();
+            var parsingFactory = GetDataFromCellFactory.GetDataFromCell(parsingMethod);
+            var result = parsingFactory.MappingData<TModel>(reader, columnList, ref errorsList);
+
+            return result;
         }
     }
 }
