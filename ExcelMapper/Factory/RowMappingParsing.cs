@@ -7,7 +7,7 @@ using ExcelReaderMapper.Extensions;
 using ExcelReaderMapper.Infrastructure;
 using ExcelReaderMapper.Model;
 
-namespace ExcelReaderMapper.Service
+namespace ExcelReaderMapper.Factory
 {
     internal class RowMappingParsing : IRowMappingData
     {

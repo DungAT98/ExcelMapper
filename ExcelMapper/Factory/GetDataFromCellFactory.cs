@@ -2,7 +2,7 @@
 using ExcelReaderMapper.Common;
 using ExcelReaderMapper.Infrastructure;
 
-namespace ExcelReaderMapper.Service
+namespace ExcelReaderMapper.Factory
 {
     internal static class GetDataFromCellFactory
     {

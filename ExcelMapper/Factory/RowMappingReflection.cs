@@ -7,7 +7,7 @@ using ExcelReaderMapper.Common;
 using ExcelReaderMapper.Infrastructure;
 using ExcelReaderMapper.Model;
 
-namespace ExcelReaderMapper.Service
+namespace ExcelReaderMapper.Factory
 {
     internal class RowMappingReflection : IRowMappingData
     {

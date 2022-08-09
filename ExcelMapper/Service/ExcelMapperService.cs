@@ -2,6 +2,7 @@
 using System.IO;
 using ExcelDataReader;
 using ExcelReaderMapper.Common;
+using ExcelReaderMapper.Factory;
 using ExcelReaderMapper.Infrastructure;
 using ExcelReaderMapper.Model;
 

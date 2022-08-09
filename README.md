@@ -32,14 +32,14 @@ Create a model to mapping with datatype with DisplayAttribute to declare the exc
 ```
 public class ExcelModel
 {
-    [Display(Name = "FIRST_NAME")]
+    [MappingColumn(Name = "FIRST_NAME")]
     public string FirstName { get; set; }
     
-    [Display(Name = "LAST_NAME")]
+    [MappingColumn(Name = "LAST_NAME")]
     public string LastNane { get; set; }
     
-    [Display(Name = "AGE")]
-    public int Age { get; set; }
+    [MappingColumn(Name = "AGE", CustomFormat = { "dd-mm-yyyy" })]
+    public DateTime DateOfBirth { get; set; }
 }
 ```
 
@@ -47,12 +47,11 @@ Call the excelmapper object
 
 ```
 var fileContent = File.ReadAllBytes("Example.xlsx");
-var excelMapper = new MapExcelFile();
-excelMapper.DateTimeFormat = new{ "yyyy-dd-MM" };
+var excelMapper = new ExcelMapperService();
 var result = excelMapper.GetDataFromExcel<ExcelModel>(fileContent);
 ```
 
 ## Properties
 
 lineOfOffset: It will offset the lines that started reading the excel file (Default = 1)
-DateTimeFormat: contains a array of datetime format when the columns is not a Date type in excel
+parsingMethod: Additional parsing method (not to use reflection too much) - refer ParsingMethod enum. (Experimental)
