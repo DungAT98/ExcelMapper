@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using ExcelMapper.Infrastructure;
+using ExcelReaderMapper.Infrastructure;
 
-namespace ExcelMapper.Model
+namespace ExcelReaderMapper.Model
 {
     public class ExcelResult<TExcelModel> : IExcelResult<TExcelModel>
     {

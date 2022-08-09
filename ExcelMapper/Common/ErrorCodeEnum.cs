@@ -1,4 +1,4 @@
-﻿namespace ExcelMapper.Common
+﻿namespace ExcelReaderMapper.Common
 {
     public enum ErrorCodeEnum
     {

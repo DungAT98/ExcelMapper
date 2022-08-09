@@ -1,7 +1,7 @@
-﻿using ExcelMapper.Common;
-using ExcelMapper.Infrastructure;
+﻿using ExcelReaderMapper.Common;
+using ExcelReaderMapper.Infrastructure;
 
-namespace ExcelMapper.Model
+namespace ExcelReaderMapper.Model
 {
     public class LoggingModel : ILoggingModel
     {

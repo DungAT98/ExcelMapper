@@ -14,11 +14,18 @@
         <PackageVersion>1.0.1</PackageVersion>
 	    <RepositoryType>git</RepositoryType>
 	    <RepositoryUrl>https://github.com/DungAT98/ExcelMapper</RepositoryUrl>
+	    <SignAssembly>True</SignAssembly>
+	    <AssemblyOriginatorKeyFile>keypair.snk</AssemblyOriginatorKeyFile>
+	    <AssemblyVersion>1.0.1</AssemblyVersion>
+	    <FileVersion>1.0.1</FileVersion>
+	    <PublicSign>false</PublicSign>
+	    <DelaySign>False</DelaySign>
+	    <AssemblyName>ExcelReaderMapper</AssemblyName>
+	    <Version>$(AssemblyVersion)</Version>
     </PropertyGroup>
 
 	<ItemGroup>
         <PackageReference Include="ExcelDataReader" Version="3.6.0" />
-        <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     </ItemGroup>
 
 </Project>
