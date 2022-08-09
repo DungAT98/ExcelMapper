@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ExcelMapper.Infrastructure
+namespace ExcelReaderMapper.Infrastructure
 {
     public interface IExcelResult<TExcelModel>
     {

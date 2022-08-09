@@ -1,6 +1,6 @@
-﻿using ExcelMapper.Common;
+﻿using ExcelReaderMapper.Common;
 
-namespace ExcelMapper.Infrastructure
+namespace ExcelReaderMapper.Infrastructure
 {
     public interface ILoggingModel
     {

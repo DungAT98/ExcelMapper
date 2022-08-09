@@ -1,7 +1,7 @@
-﻿using ExcelMapper.Infrastructure;
-using ExcelMapper.Model;
+﻿using ExcelReaderMapper.Infrastructure;
+using ExcelReaderMapper.Model;
 
-namespace ExcelMapper.Common
+namespace ExcelReaderMapper.Common
 {
     public static class MessageConstant
     {

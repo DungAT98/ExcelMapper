@@ -2,37 +2,40 @@
 using System.Linq;
 using System.Reflection;
 
-public static class ReflectionHelper
+namespace ExcelReaderMapper.Common
 {
-    public static List<TAttribute> GetAttributeValue<TModel, TAttribute>()
+    public static class ReflectionHelper
     {
-        return typeof(TModel).GetProperties()
-            .SelectMany(p => p.GetCustomAttributes(true))
-            .OfType<TAttribute>()
-            .ToList();
-    }
-
-    public static List<PropertyInfo> GetPropertyInfoWithAttribute<TModel, TAttribute>()
-    {
-        var allProperties = typeof(TModel).GetProperties();
-        var result = new List<PropertyInfo>();
-        foreach (var propertyInfo in allProperties)
+        public static List<TAttribute> GetAttributeValue<TModel, TAttribute>()
         {
-            var attributeList = propertyInfo.GetCustomAttributes(true)
-                .OfType<TAttribute>();
-            if (attributeList.Count() != 0)
-            {
-                result.Add(propertyInfo);
-            }
+            return typeof(TModel).GetProperties()
+                .SelectMany(p => p.GetCustomAttributes(true))
+                .OfType<TAttribute>()
+                .ToList();
         }
 
-        return result;
-    }
+        public static List<PropertyInfo> GetPropertyInfoWithAttribute<TModel, TAttribute>()
+        {
+            var allProperties = typeof(TModel).GetProperties();
+            var result = new List<PropertyInfo>();
+            foreach (var propertyInfo in allProperties)
+            {
+                var attributeList = propertyInfo.GetCustomAttributes(true)
+                    .OfType<TAttribute>();
+                if (attributeList.Count() != 0)
+                {
+                    result.Add(propertyInfo);
+                }
+            }
 
-    public static List<TAttribute> GetAttributeValue<TAttribute>(PropertyInfo propertyInfo)
-    {
-        return propertyInfo.GetCustomAttributes(true)
-            .OfType<TAttribute>()
-            .ToList();
+            return result;
+        }
+
+        public static List<TAttribute> GetAttributeValue<TAttribute>(PropertyInfo propertyInfo)
+        {
+            return propertyInfo.GetCustomAttributes(true)
+                .OfType<TAttribute>()
+                .ToList();
+        }
     }
 }
