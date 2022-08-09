@@ -27,7 +27,7 @@ jobs:
         uses: alirezanet/publish-nuget@v3.0.4
         with:
           # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: ExcelMapper/ExcelMapper.csproj
+          PROJECT_FILE_PATH: ExcelReaderMapper/ExcelReaderMapper.csproj
 
           # Platform target to compile (default is empty/AnyCPU)
           # BUILD_PLATFORM: x64
