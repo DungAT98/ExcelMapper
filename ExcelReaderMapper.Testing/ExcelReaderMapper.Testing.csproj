@@ -22,7 +22,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ExcelMapper\ExcelMapper.csproj" />
       <ProjectReference Include="..\ExcelMapper\ExcelReaderMapper.csproj" />
     </ItemGroup>
 

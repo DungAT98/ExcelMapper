@@ -8,52 +8,23 @@ using ExcelReaderMapper.Model;
 
 namespace ExcelReaderMapper.Service
 {
-    public class ExcelMapperService : IExcelMapperService
+    public class ExcelMapperService : ExcelMapperServiceBase, IExcelMapperService
     {
-        private IHeaderRowService? _headerRowService;
-
-        private IValidateHeaderService? _validateHeaderService;
-
         public ExcelMapperService()
         {
         }
 
-        public ExcelMapperService(IHeaderRowService? headerRowService)
+        public ExcelMapperService(IHeaderRowService? headerRowService) : base(headerRowService)
         {
-            HeaderRowService = headerRowService;
         }
 
-        public ExcelMapperService(IValidateHeaderService? validateHeaderService)
+        public ExcelMapperService(IValidateHeaderService? validateHeaderService) : base(validateHeaderService)
         {
-            ValidateHeaderService = validateHeaderService;
         }
 
-        public IHeaderRowService? HeaderRowService
+        public ExcelMapperService(IHeaderRowService? headerRowService, IValidateHeaderService? validateHeaderService) :
+            base(headerRowService, validateHeaderService)
         {
-            get
-            {
-                if (_headerRowService == null)
-                {
-                    _headerRowService = new HeaderRowService();
-                }
-
-                return _headerRowService;
-            }
-            set => _headerRowService = value;
-        }
-
-        public IValidateHeaderService? ValidateHeaderService
-        {
-            get
-            {
-                if (_validateHeaderService == null)
-                {
-                    _validateHeaderService = new ValidateHeaderService();
-                }
-
-                return _validateHeaderService;
-            }
-            set => _validateHeaderService = value;
         }
 
         public List<IExcelResult<TExcelModel>> GetDataFromExcel<TExcelModel>(byte[] content, int lineOffset = 1,
