@@ -13,6 +13,6 @@ public class UnitTest1
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         var fileContent = File.ReadAllBytes("Book1.xlsx");
         var excelMapping = new ExcelMapperService();
-        var result = excelMapping.GetDataFromExcel<DemoModel>(fileContent, 1, ParsingMethod.NormalCase);
+        var result = excelMapping.GetDataFromExcel<DemoModel>(fileContent, 1, 2, ParsingMethod.NormalCase);
     }
 }

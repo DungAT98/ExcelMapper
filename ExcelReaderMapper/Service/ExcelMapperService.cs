@@ -27,17 +27,23 @@ namespace ExcelReaderMapper.Service
         }
 
         public List<IExcelResult<TExcelModel>> GetDataFromExcel<TExcelModel>(byte[] content, int lineOffset = 1,
-            ParsingMethod parsingMethod = ParsingMethod.Reflection)
+            int lengthOfHeader = 1, ParsingMethod parsingMethod = ParsingMethod.Reflection)
         {
             var result = new List<IExcelResult<TExcelModel>>();
             using var memoryStream = new MemoryStream(content);
             using var reader = ExcelReaderFactory.CreateReader(memoryStream);
-            var currentLine = lineOffset;
+            var currentLine = 1;
             var excelColumnsList = new List<ExcelColumnModel>();
             do
             {
                 while (reader.Read())
                 {
+                    // skip all above lines until got the lineOffset
+                    if (currentLine < lineOffset)
+                    {
+                        continue;
+                    }
+
                     var rowData = ExcelHelper.ReadEntireRow(reader);
                     var isEmptyRow = ExcelHelper.IsRowEmpty(rowData);
                     if (isEmptyRow)
@@ -48,9 +54,32 @@ namespace ExcelReaderMapper.Service
 
                     if (currentLine == lineOffset)
                     {
-                        var headerRow = ExcelHelper.ReadEntireRow(reader);
+                        var headerRow = GetHeaderRowInfo(reader, lengthOfHeader);
+                        if (headerRow == null)
+                        {
+                            result.Add(new ExcelResult<TExcelModel>
+                            {
+                                Errors = new List<ILoggingModel>()
+                                {
+                                    MessageConstant.MissingDataFirstRow
+                                },
+                                ExcelModel = default!,
+                                IsError = true,
+                                LineNumber = lineOffset
+                            });
+                            reader.Close();
+
+                            return result;
+                        }
+
+                        // correct the row number
+                        currentLine += lengthOfHeader - 1;
+
+                        excelColumnsList = HeaderRowService!.MappingExcelColumnNumber<TExcelModel>(headerRow);
+
                         var isHeaderValid =
-                            ValidateHeaderService!.ValidateHeader<TExcelModel>(headerRow, out var linesError);
+                            ValidateHeaderService!.ValidateHeader<TExcelModel>(headerRow, excelColumnsList,
+                                out var linesError);
                         if (!isHeaderValid)
                         {
                             reader.Close();
@@ -64,8 +93,6 @@ namespace ExcelReaderMapper.Service
 
                             return result;
                         }
-
-                        excelColumnsList = HeaderRowService!.MappingExcelColumnNumber<TExcelModel>(headerRow);
                     }
                     else
                     {

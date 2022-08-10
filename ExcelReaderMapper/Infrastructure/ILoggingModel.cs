@@ -7,5 +7,7 @@ namespace ExcelReaderMapper.Infrastructure
         public ErrorCodeEnum Code { get; set; }
 
         public string? Message { get; set; }
+
+        public string? ColumnName { get; set; }
     }
 }
