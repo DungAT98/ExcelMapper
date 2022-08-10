@@ -54,4 +54,7 @@ var result = excelMapper.GetDataFromExcel<ExcelModel>(fileContent);
 ## Properties
 
 lineOfOffset: It will offset the lines that started reading the excel file (Default = 1)
+
 parsingMethod: Additional parsing method (not to use reflection too much) - refer ParsingMethod enum. (Experimental)
+
+lengthOfHeader: declare length of the header base on lineOfOffset
