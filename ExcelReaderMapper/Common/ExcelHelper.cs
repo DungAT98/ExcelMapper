@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using ExcelDataReader;
@@ -14,18 +15,25 @@ namespace ExcelReaderMapper.Common
 
         public static string[] ReadEntireRow(IExcelDataReader reader)
         {
-            var result = new string[reader.FieldCount];
+            var result = new List<string>();
             for (var i = 0; i < reader.FieldCount; i++)
+            {
                 try
                 {
-                    result[i] = reader.GetValue(i)?.ToString()!;
+                    result.Add(reader.GetValue(i)?.ToString()!);
                 }
                 catch
                 {
-                    result[i] = null!;
+                    result.Add(null!);
                 }
+            }
 
-            return result;
+            while (string.IsNullOrWhiteSpace(result.TakeLast(1).FirstOrDefault()))
+            {
+                result.RemoveAt(result.Count - 1);
+            }
+
+            return result.ToArray();
         }
 
         public static bool TryConvertToDateTime(object value, string[]? format, out object result)

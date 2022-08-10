@@ -18,7 +18,8 @@ namespace ExcelReaderMapper.Common
             return new LoggingModel()
             {
                 Code = ErrorCodeEnum.MustInDateFormat,
-                Message = $"{fieldName} must be in date format."
+                Message = $"{fieldName} must be in date format.",
+                ColumnName = fieldName
             };
         }
 
@@ -27,7 +28,8 @@ namespace ExcelReaderMapper.Common
             return new LoggingModel()
             {
                 Code = ErrorCodeEnum.InvalidField,
-                Message = $"{fieldName} is invalid"
+                Message = $"{fieldName} is invalid",
+                ColumnName = fieldName
             };
         }
 
@@ -37,7 +39,8 @@ namespace ExcelReaderMapper.Common
             {
                 Code = ErrorCodeEnum.MissingColumns,
                 Message =
-                    $"The uploaded file is missing the column {columnsName}"
+                    $"The uploaded file is missing the column {columnsName}",
+                ColumnName = columnsName
             };
         }
 
@@ -47,7 +50,8 @@ namespace ExcelReaderMapper.Common
             {
                 Code = ErrorCodeEnum.DuplicateColumn,
                 Message =
-                    $"The following columns is duplicated in uploaded file: {columnsName}"
+                    $"The following columns is duplicated in uploaded file: {columnsName}",
+                ColumnName = columnsName
             };
         }
 
@@ -56,7 +60,8 @@ namespace ExcelReaderMapper.Common
             return new LoggingModel()
             {
                 Code = ErrorCodeEnum.FieldMustBeNumeric,
-                Message = $"{columnsName} must be numeric."
+                Message = $"{columnsName} must be numeric.",
+                ColumnName = columnsName
             };
         }
     }

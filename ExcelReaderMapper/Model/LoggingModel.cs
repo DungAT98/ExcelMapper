@@ -8,5 +8,7 @@ namespace ExcelReaderMapper.Model
         public ErrorCodeEnum Code { get; set; }
 
         public string? Message { get; set; }
+
+        public string? ColumnName { get; set; }
     }
 }

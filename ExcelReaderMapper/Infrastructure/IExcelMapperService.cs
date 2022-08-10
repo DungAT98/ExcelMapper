@@ -6,6 +6,6 @@ namespace ExcelReaderMapper.Infrastructure
     public interface IExcelMapperService
     {
         List<IExcelResult<TExcelModel>> GetDataFromExcel<TExcelModel>(byte[] content, int lineOffset = 1,
-            ParsingMethod parsingMethod = ParsingMethod.Reflection);
+            int lengthOfHeader = 1, ParsingMethod parsingMethod = ParsingMethod.Reflection);
     }
 }

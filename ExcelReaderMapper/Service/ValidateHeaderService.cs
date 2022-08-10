@@ -8,7 +8,8 @@ namespace ExcelReaderMapper.Service
 {
     public class ValidateHeaderService : IValidateHeaderService
     {
-        public bool ValidateHeader<TExcelModel>(string[] headerNameExcel, out List<ILoggingModel> linesError)
+        public bool ValidateHeader<TExcelModel>(string[] headerNameExcel, List<ExcelColumnModel> excelColumnModels,
+            out List<ILoggingModel> linesError)
         {
             linesError = new List<ILoggingModel>();
             if (headerNameExcel.All(string.IsNullOrWhiteSpace))
@@ -17,8 +18,7 @@ namespace ExcelReaderMapper.Service
                 return false;
             }
 
-            var attributeData = ReflectionHelper.GetAttributeValue<TExcelModel, MappingColumnAttribute>()
-                .Where(n => !string.IsNullOrWhiteSpace(n.Name))
+            var attributeData = excelColumnModels.Where(n => !string.IsNullOrWhiteSpace(n.Name))
                 .Select(n => n.Name)
                 .ToList();
             var duplicateColumns = headerNameExcel.GroupBy(n => n)
