@@ -4,10 +4,10 @@ namespace ExcelReaderMapper.Infrastructure
 {
     public interface ILoggingModel
     {
-        public ErrorCodeEnum Code { get; set; }
+        ErrorCodeEnum Code { get; set; }
 
-        public string? Message { get; set; }
+        string Message { get; set; }
 
-        public string? ColumnName { get; set; }
+        string ColumnName { get; set; }
     }
 }

@@ -7,6 +7,6 @@ namespace ExcelReaderMapper.Model
     {
         public string Name { get; set; } = string.Empty;
 
-        public string[]? CustomFormat { get; set; }
+        public string[] CustomFormat { get; set; }
     }
 }

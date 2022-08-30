@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using ExcelDataReader;
+using ExcelReaderMapper.Extensions;
 
 namespace ExcelReaderMapper.Common
 {
@@ -20,11 +21,11 @@ namespace ExcelReaderMapper.Common
             {
                 try
                 {
-                    result.Add(reader.GetValue(i)?.ToString()!);
+                    result.Add(reader.GetValue(i)?.ToString());
                 }
                 catch
                 {
-                    result.Add(null!);
+                    result.Add(null);
                 }
             }
 
@@ -36,9 +37,9 @@ namespace ExcelReaderMapper.Common
             return result.ToArray();
         }
 
-        public static bool TryConvertToDateTime(object value, string[]? format, out object result)
+        public static bool TryConvertToDateTime(object value, string[] format, out object result)
         {
-            result = null!;
+            result = null;
 
             if (value is string stringValue)
             {

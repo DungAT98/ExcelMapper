@@ -31,7 +31,7 @@ namespace ExcelReaderMapper.Factory
             return model;
         }
 
-        private bool TryConvertType(IExcelDataReader reader, ExcelColumnModel columnModel, out object? result)
+        private bool TryConvertType(IExcelDataReader reader, ExcelColumnModel columnModel, out object result)
         {
             result = null;
             var isNullable = false;
