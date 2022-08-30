@@ -8,8 +8,8 @@ namespace ExcelReaderMapper.Model
 
         public int ColumnNumber { get; set; }
 
-        public MappingColumnAttribute? MappingColumnAttribute { get; set; }
+        public MappingColumnAttribute MappingColumnAttribute { get; set; }
 
-        public PropertyInfo PropertyInfo { get; set; } = null!;
+        public PropertyInfo PropertyInfo { get; set; }
     }
 }

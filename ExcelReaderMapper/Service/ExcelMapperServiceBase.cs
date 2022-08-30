@@ -10,32 +10,32 @@ namespace ExcelReaderMapper.Service
 {
     public abstract class ExcelMapperServiceBase
     {
-        private IHeaderRowService? _headerRowService;
+        private IHeaderRowService _headerRowService;
 
-        private IValidateHeaderService? _validateHeaderService;
+        private IValidateHeaderService _validateHeaderService;
 
         public ExcelMapperServiceBase()
         {
         }
 
-        public ExcelMapperServiceBase(IHeaderRowService? headerRowService)
+        public ExcelMapperServiceBase(IHeaderRowService headerRowService)
         {
             HeaderRowService = headerRowService;
         }
 
-        public ExcelMapperServiceBase(IValidateHeaderService? validateHeaderService)
+        public ExcelMapperServiceBase(IValidateHeaderService validateHeaderService)
         {
             ValidateHeaderService = validateHeaderService;
         }
 
-        public ExcelMapperServiceBase(IHeaderRowService? headerRowService,
-            IValidateHeaderService? validateHeaderService)
+        public ExcelMapperServiceBase(IHeaderRowService headerRowService,
+            IValidateHeaderService validateHeaderService)
         {
             HeaderRowService = headerRowService;
             ValidateHeaderService = validateHeaderService;
         }
 
-        public IHeaderRowService? HeaderRowService
+        public IHeaderRowService HeaderRowService
         {
             get
             {
@@ -49,7 +49,7 @@ namespace ExcelReaderMapper.Service
             set => _headerRowService = value;
         }
 
-        public IValidateHeaderService? ValidateHeaderService
+        public IValidateHeaderService ValidateHeaderService
         {
             get
             {
@@ -73,7 +73,7 @@ namespace ExcelReaderMapper.Service
             return result;
         }
 
-        protected string[]? GetHeaderRowInfo(IExcelDataReader reader, int lengthOfHeader)
+        protected string[] GetHeaderRowInfo(IExcelDataReader reader, int lengthOfHeader)
         {
             if (lengthOfHeader <= 0)
             {
@@ -100,16 +100,16 @@ namespace ExcelReaderMapper.Service
             var result = traverseList.Select(n => n.LastOrDefault(m => !string.IsNullOrWhiteSpace(m)))
                 .ToList();
 
-            return result.ToArray()!;
+            return result.ToArray();
         }
 
-        private List<string?[]> FlipList(List<string[]> input)
+        private List<string[]> FlipList(List<string[]> input)
         {
             var longestRow = input.Max(n => n.Length);
-            var result = new List<string?[]>();
+            var result = new List<string[]>();
             for (var i = 0; i < longestRow; i++)
             {
-                var fragment = new List<string?>();
+                var fragment = new List<string>();
                 foreach (var inputItem in input)
                 {
                     fragment.Add(inputItem.Length - 1 < i ? null : inputItem[i]);
@@ -159,7 +159,7 @@ namespace ExcelReaderMapper.Service
                             {
                                 MessageConstant.MissingDataFirstRow
                             },
-                            ExcelModel = default!,
+                            ExcelModel = default,
                             IsError = true,
                             LineNumber = lineOffset
                         });
@@ -171,17 +171,17 @@ namespace ExcelReaderMapper.Service
                     // correct the row number
                     currentLine += lengthOfHeader - 1;
 
-                    excelColumnsList = HeaderRowService!.MappingExcelColumnNumber<TExcelModel>(headerRow);
+                    excelColumnsList = HeaderRowService.MappingExcelColumnNumber<TExcelModel>(headerRow);
 
                     var isHeaderValid =
-                        ValidateHeaderService!.ValidateHeader<TExcelModel>(headerRow, excelColumnsList,
+                        ValidateHeaderService.ValidateHeader<TExcelModel>(headerRow, excelColumnsList,
                             out var linesError);
                     if (!isHeaderValid)
                     {
                         excelRowResults.Add(new ExcelRowResult<TExcelModel>
                         {
                             Errors = linesError,
-                            ExcelModel = default!,
+                            ExcelModel = default,
                             IsError = true,
                             LineNumber = lineOffset
                         });

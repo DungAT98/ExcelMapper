@@ -19,7 +19,7 @@ namespace ExcelReaderMapper.Common
                     "Missing data of the first row. The validation cannot be processed."
             };
 
-        public static ILoggingModel MustInDateFormat(string? fieldName)
+        public static ILoggingModel MustInDateFormat(string fieldName)
         {
             return new LoggingModel()
             {
@@ -29,7 +29,7 @@ namespace ExcelReaderMapper.Common
             };
         }
 
-        public static ILoggingModel InvalidField(string? fieldName)
+        public static ILoggingModel InvalidField(string fieldName)
         {
             return new LoggingModel()
             {
@@ -39,7 +39,7 @@ namespace ExcelReaderMapper.Common
             };
         }
 
-        public static ILoggingModel MissingColumns(string? columnsName)
+        public static ILoggingModel MissingColumns(string columnsName)
         {
             return new LoggingModel()
             {
@@ -50,7 +50,7 @@ namespace ExcelReaderMapper.Common
             };
         }
 
-        public static ILoggingModel DuplicateColumn(string? columnsName)
+        public static ILoggingModel DuplicateColumn(string columnsName)
         {
             return new LoggingModel()
             {
@@ -61,7 +61,7 @@ namespace ExcelReaderMapper.Common
             };
         }
 
-        public static ILoggingModel FieldMustBeNumeric(string? columnsName)
+        public static ILoggingModel FieldMustBeNumeric(string columnsName)
         {
             return new LoggingModel()
             {

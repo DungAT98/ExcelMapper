@@ -4,12 +4,12 @@ namespace ExcelReaderMapper.Infrastructure
 {
     public interface IExcelRowResult<TExcelModel>
     {
-        public TExcelModel ExcelModel { get; set; }
+        TExcelModel ExcelModel { get; set; }
 
-        public int LineNumber { get; set; }
+        int LineNumber { get; set; }
 
-        public bool IsError { get; set; }
+        bool IsError { get; set; }
 
-        public List<ILoggingModel>? Errors { get; set; }
+        List<ILoggingModel> Errors { get; set; }
     }
 }

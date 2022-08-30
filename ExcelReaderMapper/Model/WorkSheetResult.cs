@@ -5,7 +5,7 @@ namespace ExcelReaderMapper.Model
 {
     public class WorkSheetResult<TExcelModel>
     {
-        public string SheetName { get; set; } = default!;
+        public string SheetName { get; set; }
 
         public int SheetNumber { get; set; }
 
