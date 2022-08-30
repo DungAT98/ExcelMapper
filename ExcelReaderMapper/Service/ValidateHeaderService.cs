@@ -12,6 +12,12 @@ namespace ExcelReaderMapper.Service
             out List<ILoggingModel> linesError)
         {
             linesError = new List<ILoggingModel>();
+            if (excelColumnModels.Count == 0)
+            {
+                linesError.Add(MessageConstant.MissingDataFirstRow);
+                return false;
+            }
+
             if (headerNameExcel.All(string.IsNullOrWhiteSpace))
             {
                 linesError.Add(MessageConstant.MissingDataFirstRow);

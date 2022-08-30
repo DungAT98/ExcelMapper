@@ -28,7 +28,7 @@ namespace ExcelReaderMapper.Common
                 }
             }
 
-            while (string.IsNullOrWhiteSpace(result.TakeLast(1).FirstOrDefault()))
+            while (string.IsNullOrWhiteSpace(result.TakeLast(1).FirstOrDefault()) && result.Count > 0)
             {
                 result.RemoveAt(result.Count - 1);
             }

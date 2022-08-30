@@ -5,7 +5,7 @@ namespace ExcelReaderMapper.Infrastructure
 {
     public interface IMapExcelFile
     {
-        List<IExcelResult<TExcelModel>> GetDataFromExcel<TExcelModel>(byte[] content, int lineOffset = 1,
+        List<IExcelRowResult<TExcelModel>> GetDataFromExcel<TExcelModel>(byte[] content, int lineOffset = 1,
             ParsingMethod parsingMethod = ParsingMethod.Reflection);
     }
 }

@@ -26,97 +26,53 @@ namespace ExcelReaderMapper.Service
         {
         }
 
-        public List<IExcelResult<TExcelModel>> GetDataFromExcel<TExcelModel>(byte[] content, int lineOffset = 1,
-            int lengthOfHeader = 1, ParsingMethod parsingMethod = ParsingMethod.Reflection)
+        public IEnumerable<WorkSheetResult<TExcelModel>> GetDataFromExcel<TExcelModel>(byte[] content,
+            int lineOffset = 1, int lengthOfHeader = 1, ParsingMethod parsingMethod = ParsingMethod.Reflection)
         {
-            var result = new List<IExcelResult<TExcelModel>>();
+            var sheetIndex = 1;
+            var result = new List<WorkSheetResult<TExcelModel>>();
             using var memoryStream = new MemoryStream(content);
             using var reader = ExcelReaderFactory.CreateReader(memoryStream);
-            var currentLine = 1;
-            var excelColumnsList = new List<ExcelColumnModel>();
             do
             {
-                while (reader.Read())
-                {
-                    // skip all above lines until got the lineOffset
-                    if (currentLine < lineOffset)
-                    {
-                        continue;
-                    }
-
-                    var rowData = ExcelHelper.ReadEntireRow(reader);
-                    var isEmptyRow = ExcelHelper.IsRowEmpty(rowData);
-                    if (isEmptyRow)
-                    {
-                        currentLine++;
-                        continue;
-                    }
-
-                    if (currentLine == lineOffset)
-                    {
-                        var headerRow = GetHeaderRowInfo(reader, lengthOfHeader);
-                        if (headerRow == null)
-                        {
-                            result.Add(new ExcelResult<TExcelModel>
-                            {
-                                Errors = new List<ILoggingModel>()
-                                {
-                                    MessageConstant.MissingDataFirstRow
-                                },
-                                ExcelModel = default!,
-                                IsError = true,
-                                LineNumber = lineOffset
-                            });
-                            reader.Close();
-
-                            return result;
-                        }
-
-                        // correct the row number
-                        currentLine += lengthOfHeader - 1;
-
-                        excelColumnsList = HeaderRowService!.MappingExcelColumnNumber<TExcelModel>(headerRow);
-
-                        var isHeaderValid =
-                            ValidateHeaderService!.ValidateHeader<TExcelModel>(headerRow, excelColumnsList,
-                                out var linesError);
-                        if (!isHeaderValid)
-                        {
-                            reader.Close();
-                            result.Add(new ExcelResult<TExcelModel>
-                            {
-                                Errors = linesError,
-                                ExcelModel = default!,
-                                IsError = true,
-                                LineNumber = lineOffset
-                            });
-
-                            return result;
-                        }
-                    }
-                    else
-                    {
-                        var data = GetDataFromCell<TExcelModel>(reader, excelColumnsList, out var errorsList,
-                            parsingMethod);
-                        result.Add(new ExcelResult<TExcelModel>
-                        {
-                            ExcelModel = data,
-                            LineNumber = currentLine,
-                            Errors = errorsList,
-                            IsError = errorsList.Count != 0
-                        });
-                    }
-
-                    currentLine++;
-                }
-
+                var workSheetResult =
+                    MappingExcelInWorksheet<TExcelModel>(reader, lineOffset, sheetIndex, lengthOfHeader,
+                        parsingMethod);
                 // each sheet need to be reset the counter
-                currentLine = lineOffset;
+                result.Add(workSheetResult);
+                sheetIndex++;
             } while (reader.NextResult());
 
             reader.Close();
 
             return result;
+        }
+
+        public WorkSheetResult<TExcelModel>? GetDataFromExcel<TExcelModel>(byte[] content, int sheetIndex,
+            int lineOffset = 1, int lengthOfHeader = 1, ParsingMethod parsingMethod = ParsingMethod.Reflection)
+        {
+            var currentSheetIndex = 1;
+            using var memoryStream = new MemoryStream(content);
+            using var reader = ExcelReaderFactory.CreateReader(memoryStream);
+            do
+            {
+                if (sheetIndex != currentSheetIndex)
+                {
+                    currentSheetIndex++;
+                    continue;
+                }
+
+                var result = MappingExcelInWorksheet<TExcelModel>(reader, lineOffset, sheetIndex, lengthOfHeader,
+                    parsingMethod);
+                reader.Close();
+
+                return result;
+                // each sheet need to be reset the counter
+            } while (reader.NextResult());
+
+            reader.Close();
+
+            return null;
         }
     }
 }

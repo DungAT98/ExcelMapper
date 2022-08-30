@@ -2,7 +2,7 @@
 
 namespace ExcelReaderMapper.Infrastructure
 {
-    public interface IExcelResult<TExcelModel>
+    public interface IExcelRowResult<TExcelModel>
     {
         public TExcelModel ExcelModel { get; set; }
 
