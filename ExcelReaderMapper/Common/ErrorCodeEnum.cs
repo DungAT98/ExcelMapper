@@ -7,6 +7,7 @@
         InvalidField,
         MissingColumns,
         DuplicateColumn,
-        FieldMustBeNumeric
+        FieldMustBeNumeric,
+        InvalidTemplate
     }
 }

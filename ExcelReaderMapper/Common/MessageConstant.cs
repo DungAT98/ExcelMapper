@@ -5,6 +5,12 @@ namespace ExcelReaderMapper.Common
 {
     public static class MessageConstant
     {
+        public static ILoggingModel InvalidTemplate => new LoggingModel()
+        {
+            Code = ErrorCodeEnum.InvalidTemplate,
+            Message = "Invalid template in excel worksheet"
+        };
+
         public static ILoggingModel MissingDataFirstRow =>
             new LoggingModel()
             {

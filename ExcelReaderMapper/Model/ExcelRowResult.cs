@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ExcelReaderMapper.Infrastructure;
 
 namespace ExcelReaderMapper.Model
 {
-    public class ExcelResult<TExcelModel> : IExcelResult<TExcelModel>
+    public class ExcelRowResult<TExcelModel> : IExcelRowResult<TExcelModel>
     {
         public List<ILoggingModel>? Errors { get; set; }
 

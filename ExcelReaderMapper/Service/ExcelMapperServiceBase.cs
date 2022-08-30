@@ -120,5 +120,95 @@ namespace ExcelReaderMapper.Service
 
             return result;
         }
+
+        protected WorkSheetResult<TExcelModel> MappingExcelInWorksheet<TExcelModel>(IExcelDataReader reader,
+            int lineOffset, int sheetIndex, int lengthOfHeader, ParsingMethod parsingMethod)
+        {
+            var currentLine = lineOffset;
+            var excelColumnsList = new List<ExcelColumnModel>();
+            var workSheetResult = new WorkSheetResult<TExcelModel>()
+            {
+                SheetNumber = sheetIndex
+            };
+            var excelRowResults = new List<ExcelRowResult<TExcelModel>>();
+            while (reader.Read())
+            {
+                // skip all above lines until got the lineOffset
+                if (currentLine < lineOffset)
+                {
+                    continue;
+                }
+
+                var rowData = ExcelHelper.ReadEntireRow(reader);
+                var isEmptyRow = ExcelHelper.IsRowEmpty(rowData);
+                if (isEmptyRow)
+                {
+                    currentLine++;
+                    continue;
+                }
+
+                if (currentLine == lineOffset)
+                {
+                    workSheetResult.SheetName = reader.Name;
+                    var headerRow = GetHeaderRowInfo(reader, lengthOfHeader);
+                    if (headerRow == null)
+                    {
+                        excelRowResults.Add(new ExcelRowResult<TExcelModel>
+                        {
+                            Errors = new List<ILoggingModel>()
+                            {
+                                MessageConstant.MissingDataFirstRow
+                            },
+                            ExcelModel = default!,
+                            IsError = true,
+                            LineNumber = lineOffset
+                        });
+                        workSheetResult.RowResults = workSheetResult.RowResults.Concat(excelRowResults);
+
+                        return workSheetResult;
+                    }
+
+                    // correct the row number
+                    currentLine += lengthOfHeader - 1;
+
+                    excelColumnsList = HeaderRowService!.MappingExcelColumnNumber<TExcelModel>(headerRow);
+
+                    var isHeaderValid =
+                        ValidateHeaderService!.ValidateHeader<TExcelModel>(headerRow, excelColumnsList,
+                            out var linesError);
+                    if (!isHeaderValid)
+                    {
+                        excelRowResults.Add(new ExcelRowResult<TExcelModel>
+                        {
+                            Errors = linesError,
+                            ExcelModel = default!,
+                            IsError = true,
+                            LineNumber = lineOffset
+                        });
+
+                        workSheetResult.RowResults = workSheetResult.RowResults.Concat(excelRowResults);
+
+                        return workSheetResult;
+                    }
+                }
+                else
+                {
+                    var data = GetDataFromCell<TExcelModel>(reader, excelColumnsList, out var errorsList,
+                        parsingMethod);
+                    excelRowResults.Add(new ExcelRowResult<TExcelModel>
+                    {
+                        ExcelModel = data,
+                        LineNumber = currentLine,
+                        Errors = errorsList,
+                        IsError = errorsList.Count != 0
+                    });
+                }
+
+                currentLine++;
+            }
+
+            workSheetResult.RowResults = workSheetResult.RowResults.Concat(excelRowResults);
+            return workSheetResult;
+        }
     }
 }
