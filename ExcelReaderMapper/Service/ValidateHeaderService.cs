@@ -24,7 +24,8 @@ namespace ExcelReaderMapper.Service
                 return false;
             }
 
-            var attributeData = excelColumnModels.Where(n => !string.IsNullOrWhiteSpace(n.Name))
+            var attributeData = ReflectionHelper.GetAttributeValue<TExcelModel, MappingColumnAttribute>()
+                .Where(n => !string.IsNullOrWhiteSpace(n.Name))
                 .Select(n => n.Name)
                 .ToList();
             var duplicateColumns = headerNameExcel.GroupBy(n => n)
