@@ -62,7 +62,7 @@ namespace ExcelReaderMapper.Factory
             {
                 var isConverted = ExcelHelper.TryConvertToDateTime(value,
                     columnModel.MappingColumnAttribute?.CustomFormat, out result);
-                return isConverted;
+                return isConverted || isNullable;
             }
 
             if (value is string stringValue)
