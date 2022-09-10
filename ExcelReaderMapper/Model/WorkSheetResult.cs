@@ -9,7 +9,7 @@ namespace ExcelReaderMapper.Model
 
         public int SheetNumber { get; set; }
 
-        public IEnumerable<ExcelRowResult<TExcelModel>> RowResults { get; set; } =
+        public List<ExcelRowResult<TExcelModel>> RowResults { get; set; } =
             new List<ExcelRowResult<TExcelModel>>();
 
         public bool IsError => RowResults.Count(n => n.IsError) > 0;

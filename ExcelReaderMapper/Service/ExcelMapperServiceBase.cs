@@ -163,7 +163,8 @@ namespace ExcelReaderMapper.Service
                             IsError = true,
                             LineNumber = lineOffset
                         });
-                        workSheetResult.RowResults = workSheetResult.RowResults.Concat(excelRowResults);
+                        workSheetResult.RowResults = workSheetResult.RowResults.Concat(excelRowResults)
+                            .ToList();
 
                         return workSheetResult;
                     }
@@ -186,7 +187,8 @@ namespace ExcelReaderMapper.Service
                             LineNumber = lineOffset
                         });
 
-                        workSheetResult.RowResults = workSheetResult.RowResults.Concat(excelRowResults);
+                        workSheetResult.RowResults = workSheetResult.RowResults.Concat(excelRowResults)
+                            .ToList();
 
                         return workSheetResult;
                     }
@@ -207,7 +209,8 @@ namespace ExcelReaderMapper.Service
                 currentLine++;
             }
 
-            workSheetResult.RowResults = workSheetResult.RowResults.Concat(excelRowResults);
+            workSheetResult.RowResults = workSheetResult.RowResults.Concat(excelRowResults)
+                .ToList();
             return workSheetResult;
         }
     }
