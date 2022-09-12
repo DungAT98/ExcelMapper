@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using ExcelDataReader;
 using ExcelReaderMapper.Common;
 using ExcelReaderMapper.Infrastructure;
@@ -82,6 +83,38 @@ namespace ExcelReaderMapper.Service
                     return null;
                 }
             }
+        }
+
+        public List<WorksheetHeaderInformation> GetHeaderRows(byte[] content, int lineOffset = 1,
+            int lengthOfHeader = 1)
+        {
+            var result = new List<WorksheetHeaderInformation>();
+            using (var memoryStream = new MemoryStream(content))
+            {
+                using (var reader = ExcelReaderFactory.CreateReader(memoryStream))
+                {
+                    var currentSheet = new WorksheetHeaderInformation();
+                    do
+                    {
+                        var currentLine = lineOffset;
+                        while (reader.Read())
+                        {
+                            if (currentLine == lineOffset)
+                            {
+                                currentSheet.SheetName = reader.Name;
+                                var headerRow = GetHeaderRowInfo(reader, lengthOfHeader);
+                                currentSheet.HeaderRows = headerRow == null ? new List<string>() : headerRow.ToList();
+                                result.Add(currentSheet);
+                            }
+
+                            currentLine++;
+                        }
+                        // each sheet need to be reset the counter
+                    } while (reader.NextResult());
+                }
+            }
+
+            return result;
         }
     }
 }

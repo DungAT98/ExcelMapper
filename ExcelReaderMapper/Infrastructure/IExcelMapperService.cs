@@ -11,5 +11,7 @@ namespace ExcelReaderMapper.Infrastructure
 
         WorkSheetResult<TExcelModel> GetDataFromExcel<TExcelModel>(byte[] content, int sheetIndex,
             int lineOffset = 1, int lengthOfHeader = 1, ParsingMethod parsingMethod = ParsingMethod.Reflection);
+
+        List<WorksheetHeaderInformation> GetHeaderRows(byte[] content, int lineOffset = 1, int lengthOfHeader = 1);
     }
 }
