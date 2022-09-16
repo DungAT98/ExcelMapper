@@ -141,7 +141,7 @@ namespace ExcelReaderMapper.Service
 
                 var rowData = ExcelHelper.ReadEntireRow(reader);
                 var isEmptyRow = ExcelHelper.IsRowEmpty(rowData);
-                if (isEmptyRow)
+                if (isEmptyRow && currentLine != lineOffset)
                 {
                     currentLine++;
                     continue;
