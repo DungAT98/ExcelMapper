@@ -69,7 +69,8 @@ namespace ExcelReaderMapper.Factory
                         {
                             var canParseDecimal =
                                 decimal.TryParse(reader.GetValue(excelColumnModel.ColumnNumber)?.ToString(),
-                                    NumberStyles.Number | NumberStyles.AllowDecimalPoint, null,
+                                    NumberStyles.Number | NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint,
+                                    null,
                                     out var decimalValue);
                             if (!canParseDecimal)
                             {
@@ -84,7 +85,8 @@ namespace ExcelReaderMapper.Factory
                         {
                             var canParseDecimal =
                                 double.TryParse(reader.GetValue(excelColumnModel.ColumnNumber)?.ToString(),
-                                    NumberStyles.Number | NumberStyles.AllowDecimalPoint, null,
+                                    NumberStyles.Number | NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint,
+                                    null,
                                     out var decimalValue);
                             if (!canParseDecimal)
                             {
