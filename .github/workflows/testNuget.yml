@@ -1,6 +1,19 @@
 name: publish-nuget
 
 on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+
+on:
   # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#push
   push:
     branches: [ master ]
