@@ -124,7 +124,7 @@ namespace ExcelReaderMapper.Service
         protected WorkSheetResult<TExcelModel> MappingExcelInWorksheet<TExcelModel>(IExcelDataReader reader,
             int lineOffset, int sheetIndex, int lengthOfHeader, ParsingMethod parsingMethod)
         {
-            var currentLine = lineOffset;
+            var currentLine = 1;
             var excelColumnsList = new List<ExcelColumnModel>();
             var workSheetResult = new WorkSheetResult<TExcelModel>()
             {
@@ -136,6 +136,7 @@ namespace ExcelReaderMapper.Service
                 // skip all above lines until got the lineOffset
                 if (currentLine < lineOffset)
                 {
+                    currentLine++;
                     continue;
                 }
 

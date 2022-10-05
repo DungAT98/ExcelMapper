@@ -88,28 +88,33 @@ namespace ExcelReaderMapper.Service
         public List<WorksheetHeaderInformation> GetHeaderRows(byte[] content, int lineOffset = 1,
             int lengthOfHeader = 1)
         {
+            var sheetNumber = 1;
             var result = new List<WorksheetHeaderInformation>();
             using (var memoryStream = new MemoryStream(content))
             {
                 using (var reader = ExcelReaderFactory.CreateReader(memoryStream))
                 {
-                    var currentSheet = new WorksheetHeaderInformation();
                     do
                     {
-                        var currentLine = lineOffset;
+                        var currentSheet = new WorksheetHeaderInformation();
+                        var currentLine = 1;
                         while (reader.Read())
                         {
                             if (currentLine == lineOffset)
                             {
                                 currentSheet.SheetName = reader.Name;
+                                currentSheet.SheetNumber = sheetNumber;
                                 var headerRow = GetHeaderRowInfo(reader, lengthOfHeader);
                                 currentSheet.HeaderRows = headerRow == null ? new List<string>() : headerRow.ToList();
                                 result.Add(currentSheet);
+                                break;
                             }
 
                             currentLine++;
                         }
+                        
                         // each sheet need to be reset the counter
+                        sheetNumber++;
                     } while (reader.NextResult());
                 }
             }
