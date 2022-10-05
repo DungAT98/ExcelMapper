@@ -22,19 +22,25 @@ namespace ExcelReaderMapper.Service
                     continue;
                 }
 
-                var columnMatched = headerRowList.ToList().IndexOf(attributeValue.Name);
-                if (columnMatched == -1)
-                {
-                    continue;
-                }
-
                 var entity = new ExcelColumnModel
                 {
                     PropertyInfo = propertyInfo,
-                    ColumnNumber = columnMatched,
+                    ColumnNumber = attributeValue.Index,
                     MappingColumnAttribute = attributeValue,
                     Name = attributeValue.Name
                 };
+
+                if (entity.ColumnNumber == -1)
+                {
+                    var columnMatched = headerRowList.ToList().IndexOf(attributeValue.Name);
+                    if (columnMatched == -1)
+                    {
+                        continue;
+                    }
+
+                    entity.ColumnNumber = columnMatched;
+                    entity.Name = headerRowList[columnMatched];
+                }
 
                 result.Add(entity);
             }

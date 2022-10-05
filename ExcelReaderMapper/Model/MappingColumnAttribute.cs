@@ -8,5 +8,7 @@ namespace ExcelReaderMapper.Model
         public string Name { get; set; } = string.Empty;
 
         public string[] CustomFormat { get; set; }
+
+        public int Index { get; set; } = -1;
     }
 }
