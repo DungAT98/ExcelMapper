@@ -13,8 +13,6 @@ on:
         - warning
         - debug
 
-
-on:
   push:
     branches: [master]
   workflow_run:
