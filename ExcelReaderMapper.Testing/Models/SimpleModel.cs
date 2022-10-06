@@ -2,7 +2,7 @@ using ExcelReaderMapper.Model;
 
 namespace ExcelReaderMapper.Testing.Models;
 
-public class DemoModel
+public class SimpleModel
 {
     [MappingColumn(Name = "No")]
     public int No { get; set; }
@@ -17,7 +17,7 @@ public class DemoModel
     public string? Address { get; set; }
 
     [MappingColumn(Name = "Id")]
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
 
     [MappingColumn(Name = "BirthDate")]
     public DateTime BirthDate { get; set; }
