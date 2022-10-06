@@ -13,7 +13,6 @@ on:
         - warning
         - debug
 
-on:
   push:
     branches: '*'
   pull_request:
