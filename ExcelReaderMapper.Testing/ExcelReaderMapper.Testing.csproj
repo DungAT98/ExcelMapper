@@ -25,4 +25,17 @@
       <ProjectReference Include="..\ExcelReaderMapper\ExcelReaderMapper.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="EmbeddedFile" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="EmbeddFile\SimpleModel.xlsx">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="EmbeddedFile\SimpleModel.xlsx">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
