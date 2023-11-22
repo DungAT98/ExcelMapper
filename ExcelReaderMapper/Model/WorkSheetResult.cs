@@ -9,5 +9,7 @@ namespace ExcelReaderMapper.Model
             new List<ExcelRowResult<TExcelModel>>();
 
         public bool IsError => RowResults.Count(n => n.IsError) > 0;
+
+        public Dictionary<string, int> HeaderRow { get; set; } = new Dictionary<string, int>();
     }
 }
