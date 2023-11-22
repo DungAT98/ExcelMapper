@@ -10,13 +10,13 @@
         <Copyright>DungAT</Copyright>
         <PackageProjectUrl>https://github.com/DungAT98/ExcelMapper</PackageProjectUrl>
         <PackageId>ExcelReaderMapper</PackageId>
-        <PackageVersion>2.3.1</PackageVersion>
+        <PackageVersion>2.3.2</PackageVersion>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/DungAT98/ExcelMapper</RepositoryUrl>
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>keypair.snk</AssemblyOriginatorKeyFile>
-        <AssemblyVersion>2.3.1</AssemblyVersion>
-        <FileVersion>2.3.1</FileVersion>
+        <AssemblyVersion>2.3.2</AssemblyVersion>
+        <FileVersion>2.3.2</FileVersion>
         <PublicSign>false</PublicSign>
         <DelaySign>False</DelaySign>
         <AssemblyName>ExcelReaderMapper</AssemblyName>
