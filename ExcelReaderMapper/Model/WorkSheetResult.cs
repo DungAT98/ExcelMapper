@@ -10,6 +10,6 @@ namespace ExcelReaderMapper.Model
 
         public bool IsError => RowResults.Count(n => n.IsError) > 0;
 
-        public Dictionary<string, int> HeaderRow { get; set; } = new Dictionary<string, int>();
+        public string[] HeaderRow { get; set; }
     }
 }

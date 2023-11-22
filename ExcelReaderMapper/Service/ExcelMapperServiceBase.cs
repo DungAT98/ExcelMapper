@@ -170,12 +170,7 @@ namespace ExcelReaderMapper.Service
                         return workSheetResult;
                     }
 
-                    workSheetResult.HeaderRow = headerRow.Select((n, index) => new
-                        {
-                            Data = n,
-                            Index = index
-                        })
-                        .ToDictionary(n => n.Data, n => n.Index);
+                    workSheetResult.HeaderRow = headerRow;
                     // correct the row number
                     currentLine += lengthOfHeader - 1;
 
